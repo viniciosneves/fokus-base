@@ -16,6 +16,10 @@ const svg = `
 </svg>
 `
 
+const atualizarLocalStorage = () => {
+    localStorage.setItem('tarefas', JSON.stringify(tarefas))
+}
+
 function adicionarTarefaNaLista(tarefa) {
     const li = document.createElement('li')
     li.classList.add('app__section-task-list-item')
@@ -36,6 +40,8 @@ function adicionarTarefaNaLista(tarefa) {
     botao.onclick = () => {
         const descricao = prompt("Qual é o novo nome da tarefa?")
         paragrafo.textContent = descricao
+        tarefa.descricao = descricao
+        atualizarLocalStorage()
     }
 
     botao.append(imgEditar)
@@ -58,7 +64,7 @@ formularioTarefa.addEventListener('submit', (evento) => {
         descricao: textarea.value
     }
     tarefas.push(tarefa)
-    localStorage.setItem('tarefas', JSON.stringify(tarefas))
+    atualizarLocalStorage()
     adicionarTarefaNaLista(tarefa)
     textarea.value = ''
     formularioTarefa.classList.add('hidden')
