@@ -4,7 +4,7 @@ const legendaFormulario = document.querySelector('.app__form-label')
 const textarea = document.querySelector('.app__form-textarea')
 const ulTarefas = document.querySelector('.app__section-task-list')
 
-const tarefas = []
+const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []
 
 const svg = `
 <svg class="app__section-task-icon-status" width="24" height="24" viewBox="0 0 24 24"
@@ -20,22 +20,22 @@ function adicionarTarefaNaLista(tarefa) {
     const li = document.createElement('li')
     li.classList.add('app__section-task-list-item')
 
-    const svgIcon = document.createElement('svg')
-    svgIcon.innerHTML = svg
+    const icone = document.createElement('svg')
+    icone.innerHTML = svg
 
-    const paragraph = document.createElement('p')
-    paragraph.classList.add('app__section-task-list-item-description')
-    paragraph.textContent = tarefa.descricao
+    const paragrafo = document.createElement('p')
+    paragrafo.classList.add('app__section-task-list-item-description')
+    paragrafo.textContent = tarefa.descricao
 
-    const button = document.createElement('button')
-    button.classList.add('app_button-edit')
+    const botao = document.createElement('button')
+    botao.classList.add('app_button-edit')
 
-    const editIcon = document.createElement('img')
-    editIcon.setAttribute('src', '/imagens/edit.png')
+    const imgEditar = document.createElement('img')
+    imgEditar.setAttribute('src', '/imagens/edit.png')
 
-    li.append(svgIcon)
-    li.append(paragraph)
-    li.append(button)
+    li.append(icone)
+    li.append(paragrafo)
+    li.append(botao)
 
     ulTarefas.append(li)
 
@@ -55,3 +55,4 @@ formularioTarefa.addEventListener('submit', (evento) => {
     adicionarTarefaNaLista(tarefa)
 })
 
+tarefas.forEach(tarefa => adicionarTarefaNaLista(tarefa))
