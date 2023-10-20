@@ -3,6 +3,7 @@ const btnAdicionarTarefa = document.querySelector('.app__button--add-task')
 const legendaFormulario = document.querySelector('.app__form-label')
 const textarea = document.querySelector('.app__form-textarea')
 const ulTarefas = document.querySelector('.app__section-task-list')
+const btnCancelar = document.querySelector('.app__form-footer__button--cancel')
 
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []
 
@@ -15,6 +16,13 @@ const svg = `
         fill="#01080E" />
 </svg>
 `
+
+
+
+const limparFormulario = () => {
+    textarea.value = ''
+    formularioTarefa.classList.add('hidden')
+}
 
 const atualizarLocalStorage = () => {
     localStorage.setItem('tarefas', JSON.stringify(tarefas))
@@ -70,9 +78,9 @@ formularioTarefa.addEventListener('submit', (evento) => {
     tarefas.push(tarefa)
     atualizarLocalStorage()
     adicionarTarefaNaLista(tarefa)
-    textarea.value = ''
-    formularioTarefa.classList.add('hidden')
-
+    limparFormulario()
 })
 
 tarefas.forEach(tarefa => adicionarTarefaNaLista(tarefa))
+
+btnCancelar.addEventListener('click', limparFormulario)
