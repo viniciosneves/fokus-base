@@ -33,6 +33,8 @@ function adicionarTarefaNaLista(tarefa) {
     const imgEditar = document.createElement('img')
     imgEditar.setAttribute('src', '/imagens/edit.png')
 
+    botao.append(imgEditar)
+
     li.append(icone)
     li.append(paragrafo)
     li.append(botao)
@@ -53,6 +55,9 @@ formularioTarefa.addEventListener('submit', (evento) => {
     tarefas.push(tarefa)
     localStorage.setItem('tarefas', JSON.stringify(tarefas))
     adicionarTarefaNaLista(tarefa)
+    textarea.value = ''
+    formularioTarefa.classList.add('hidden')
+    
 })
 
 tarefas.forEach(tarefa => adicionarTarefaNaLista(tarefa))
