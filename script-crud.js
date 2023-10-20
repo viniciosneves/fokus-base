@@ -39,9 +39,13 @@ function adicionarTarefaNaLista(tarefa) {
 
     botao.onclick = () => {
         const descricao = prompt("Qual é o novo nome da tarefa?")
-        paragrafo.textContent = descricao
-        tarefa.descricao = descricao
-        atualizarLocalStorage()
+        // console.log('valor atual da descricao: ', descricao)
+        // debugger
+        if (descricao) {
+            paragrafo.textContent = descricao
+            tarefa.descricao = descricao
+            atualizarLocalStorage()
+        }
     }
 
     botao.append(imgEditar)
@@ -68,7 +72,7 @@ formularioTarefa.addEventListener('submit', (evento) => {
     adicionarTarefaNaLista(tarefa)
     textarea.value = ''
     formularioTarefa.classList.add('hidden')
-    
+
 })
 
 tarefas.forEach(tarefa => adicionarTarefaNaLista(tarefa))
