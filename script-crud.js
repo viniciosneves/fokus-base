@@ -33,6 +33,11 @@ function adicionarTarefaNaLista(tarefa) {
     const imgEditar = document.createElement('img')
     imgEditar.setAttribute('src', '/imagens/edit.png')
 
+    botao.onclick = () => {
+        const descricao = prompt("Qual é o novo nome da tarefa?")
+        paragrafo.textContent = descricao
+    }
+
     botao.append(imgEditar)
 
     li.append(icone)
