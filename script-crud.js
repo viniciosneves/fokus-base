@@ -64,23 +64,29 @@ function adicionarTarefaNaLista(tarefa) {
     li.append(paragrafo)
     li.append(botao)
 
-    li.onclick = () => {
-        indicadorTarefaSelecionada.textContent = tarefa.descricao
-        document.querySelectorAll('.app__section-task-list-item-active')
-            .forEach(function (elemento) {
-                elemento.classList.remove('app__section-task-list-item-active');
-            });
-
-        if (tarefaSelecionada === tarefa) {
-            tarefaSelecionada = null
-            itemTarefaSelecionada = null
-            indicadorTarefaSelecionada.textContent = ''
-            return
+    if (tarefa.concluida) {
+        botao.setAttribute('disabled', true)
+        li.classList.add('app__section-task-list-item-complete')
+    } else {
+        li.onclick = () => {
+            indicadorTarefaSelecionada.textContent = tarefa.descricao
+            document.querySelectorAll('.app__section-task-list-item-active')
+                .forEach(function (elemento) {
+                    elemento.classList.remove('app__section-task-list-item-active');
+                });
+    
+            if (tarefaSelecionada === tarefa) {
+                tarefaSelecionada = null
+                itemTarefaSelecionada = null
+                indicadorTarefaSelecionada.textContent = ''
+                return
+            }
+            tarefaSelecionada = tarefa
+            itemTarefaSelecionada = li
+            li.classList.add('app__section-task-list-item-active')
         }
-        tarefaSelecionada = tarefa
-        itemTarefaSelecionada = li
-        li.classList.add('app__section-task-list-item-active')
     }
+
 
     ulTarefas.append(li)
 
