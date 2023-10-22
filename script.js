@@ -79,20 +79,18 @@ const contagemRegressiva = () => {
     if(tempoDecorridoEmSegundos <= 0){
         audioTempoFinalizado.play()
         alert('Tempo finalizado!')
-        const focoAtivo = html.getAttribute('data-contexto') === 'foco'
-        if (focoAtivo) {            
-            var event = new CustomEvent("TarefaFinalizada", {
-                detail: {
-                    message: "A tarefa foi concluída com sucesso!",
-                    time: new Date(),
-                },
-                bubbles: true,
-                cancelable: true
-            });
-            document.dispatchEvent(event);
-            tempoDecorridoEmSegundos = 25
-            mostrarTempo()
-        }
+            // precisamos disso npara termos o custom event
+            const focoAtivo = html.getAttribute('data-contexto') === 'foco'
+            if (focoAtivo) {            
+                var event = new CustomEvent("TarefaFinalizada", {
+                    detail: {
+                        message: "A tarefa foi concluída com sucesso!",
+                    },
+                });
+                document.dispatchEvent(event);
+                tempoDecorridoEmSegundos = 25
+                mostrarTempo()
+            }
         zerar()
         return
     }
