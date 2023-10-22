@@ -9,6 +9,7 @@ const indicadorTarefaSelecionada = document.querySelector('.app__section-active-
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []
 
 let tarefaSelecionada = null
+let itemTarefaSelecionada = null
 
 const svg = `
 <svg class="app__section-task-icon-status" width="24" height="24" viewBox="0 0 24 24"
@@ -72,6 +73,7 @@ function adicionarTarefaNaLista(tarefa) {
 
         if (tarefaSelecionada === tarefa) {
             tarefaSelecionada = null
+            itemTarefaSelecionada = null
             indicadorTarefaSelecionada.textContent = ''
             return
         }
@@ -109,5 +111,16 @@ document.addEventListener("TarefaFinalizada", function (e) {
         tarefaSelecionada.concluida = true
         itemTarefaSelecionada.classList.add('app__section-task-list-item-complete')
         itemTarefaSelecionada.querySelector('button').setAttribute('disabled', true)
+    }
+});
+
+
+document.addEventListener("TarefaFinalizada", function (e) {
+    if (tarefaSelecionada) {
+        tarefaSelecionada.concluida = true
+        itemTarefaSelecionada.classList.add('app__section-task-list-item-complete')
+        itemTarefaSelecionada.querySelector('button').setAttribute('disabled', true)
+        itemTarefaSelecionada.classList.remove('app__section-task-list-item-active')
+        atualizarLocalStorage()
     }
 });
