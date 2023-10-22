@@ -8,6 +8,8 @@ const indicadorTarefaSelecionada = document.querySelector('.app__section-active-
 
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []
 
+let tarefaSelecionada = null
+
 const svg = `
 <svg class="app__section-task-icon-status" width="24" height="24" viewBox="0 0 24 24"
     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,8 +19,6 @@ const svg = `
         fill="#01080E" />
 </svg>
 `
-
-
 
 const limparFormulario = () => {
     textarea.value = ''
@@ -69,6 +69,14 @@ function adicionarTarefaNaLista(tarefa) {
             .forEach(function (elemento) {
                 elemento.classList.remove('app__section-task-list-item-active');
             });
+
+        if (tarefaSelecionada === tarefa) {
+            tarefaSelecionada = null
+            indicadorTarefaSelecionada.textContent = ''
+            return
+        }
+        tarefaSelecionada = tarefa
+        itemTarefaSelecionada = li
         li.classList.add('app__section-task-list-item-active')
     }
 
@@ -94,3 +102,12 @@ formularioTarefa.addEventListener('submit', (evento) => {
 tarefas.forEach(tarefa => adicionarTarefaNaLista(tarefa))
 
 btnCancelar.addEventListener('click', limparFormulario)
+
+
+document.addEventListener("TarefaFinalizada", function (e) {
+    if (tarefaSelecionada) {
+        tarefaSelecionada.concluida = true
+        itemTarefaSelecionada.classList.add('app__section-task-list-item-complete')
+        itemTarefaSelecionada.querySelector('button').setAttribute('disabled', true)
+    }
+});
