@@ -4,6 +4,7 @@ const legendaFormulario = document.querySelector('.app__form-label')
 const textarea = document.querySelector('.app__form-textarea')
 const ulTarefas = document.querySelector('.app__section-task-list')
 const btnCancelar = document.querySelector('.app__form-footer__button--cancel')
+const indicadorTarefaSelecionada = document.querySelector('.app__section-active-task-description')
 
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []
 
@@ -61,6 +62,15 @@ function adicionarTarefaNaLista(tarefa) {
     li.append(icone)
     li.append(paragrafo)
     li.append(botao)
+
+    li.onclick = () => {
+        indicadorTarefaSelecionada.textContent = tarefa.descricao
+        document.querySelectorAll('.app__section-task-list-item-active')
+            .forEach(function (elemento) {
+                elemento.classList.remove('app__section-task-list-item-active');
+            });
+        li.classList.add('app__section-task-list-item-active')
+    }
 
     ulTarefas.append(li)
 
