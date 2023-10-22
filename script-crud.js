@@ -6,7 +6,9 @@ const ulTarefas = document.querySelector('.app__section-task-list')
 const btnCancelar = document.querySelector('.app__form-footer__button--cancel')
 const indicadorTarefaSelecionada = document.querySelector('.app__section-active-task-description')
 
-const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []
+const btnDeletarConcluidas = document.querySelector('#btn-remover-concluidas')
+
+let tarefas = JSON.parse(localStorage.getItem('tarefas')) || []
 
 let tarefaSelecionada = null
 let itemTarefaSelecionada = null
@@ -130,3 +132,15 @@ document.addEventListener("TarefaFinalizada", function (e) {
         atualizarLocalStorage()
     }
 });
+
+const removerTarefas = () => {
+    const seletor = '.app__section-task-list-item-complete'
+    document.querySelectorAll(seletor).forEach((element) => {
+        element.remove();
+    });
+
+    tarefas = tarefas.filter(t => !t.concluida)
+    atualizarLocalStorage()
+}
+
+btnDeletarConcluidas.addEventListener('click', () => removerTarefas())
